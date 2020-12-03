@@ -6,10 +6,12 @@ public class AI implements IPlayer {
 
     private boolean isP1 = false;
     public final static int VALMAX=96;
-    public int maxDepth = 2;
+    public int maxDepth = 7;
+    
 
-    public AI(boolean isP1){
+    public AI(boolean isP1,int maxDepth){
         this.isP1 = isP1;
+        this.maxDepth = maxDepth;
     }
 
 
@@ -19,9 +21,10 @@ public class AI implements IPlayer {
         int index = -1;
         for(int i = 0; i<board.cells.length/2;i++){
             Board playNext = new Board(board);
+            if(!playNext.correctMove(convertIndex(i))) continue;
             playNext.playMove(convertIndex(i));
 
-            int result = minMaxValue(playNext,1);
+            int result = minMaxValue(playNext,this.isP1,1);
             if(index==-1){
                 maxResult = result;
                 index = i;
@@ -38,7 +41,7 @@ public class AI implements IPlayer {
         return convertIndex(index);//Case 1 d'index 0
     }
 
-    public int minMaxValue(Board board,int depth){
+    public int minMaxValue(Board board,boolean isP1, int depth){
         int sizeArray = board.cells.length/2;
         int[] scoreByIndex = new int[sizeArray];
         if(board.endPosition()){
@@ -53,7 +56,7 @@ public class AI implements IPlayer {
             if(board.correctMove(convertIndex(i))){
                 Board nextPos = new Board(board);
                 nextPos.playMove(convertIndex(i));
-                scoreByIndex[i] = minMaxValue(nextPos,depth+1);
+                scoreByIndex[i] = minMaxValue(nextPos,!isP1,depth+1);
             }
             else{
                 if (board.P1Turn) scoreByIndex[i] = -10000;
@@ -64,7 +67,7 @@ public class AI implements IPlayer {
         if(isP1){
             // WRITE the code : res contains the MAX of tab_values
             int max = -1;
-            for (int i = 0; i < 12; i++) {
+            for (int i = 0; i < sizeArray; i++) {
                 int score = scoreByIndex[i];
                 if (max == -1 || max < score) {
                     max = score;
@@ -75,7 +78,7 @@ public class AI implements IPlayer {
         else {
             // WRITE the code: res contains the MIN of tab_values
             int min = -1;
-            for (int i = 0; i < 12; i++) {
+            for (int i = 0; i < sizeArray; i++) {
                 int score = scoreByIndex[i];
                 if (min == -1 || min > score) {
                     min = score;

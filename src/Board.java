@@ -4,6 +4,7 @@ public class Board {
 
     public boolean P1Turn = true;//true = Tour du player 1
 
+    boolean isReduce=false;
     //Score des joueurs
     public int scoreP1 = 0;
     public int scoreP2 = 0;
@@ -19,6 +20,7 @@ public class Board {
         this.P1Turn = board.P1Turn;
         this.scoreP1 = board.scoreP1;
         this.scoreP2 = board.scoreP2;
+        this.isReduce = board.isReduce;
     }
 
 
@@ -77,6 +79,10 @@ public class Board {
                 scoreP2 += totalSeed;
             }
         }
+        
+        if(!isReduce && totalSeed <= 48){//Teacher rule
+            changeBoard();
+        }
     }
 
     protected int getIndex(int idx){
@@ -104,7 +110,7 @@ public class Board {
 
     protected void changeBoard(){
         int[] newCells = new int[12];
-
+        isReduce = true;
         for(int i =0;i<12;i++){//Merge des cases (Teacher rule)
             for(int j = i*2; j<=i*2+1;j++){
                 newCells[i] += cells[j];
@@ -115,11 +121,13 @@ public class Board {
 
     protected void printBoard(){
         for(int i = 0;i<cells.length/2;i++) {
+        	if(i%2==0) System.out.print("#");
             System.out.print(cells[i] + " | ");
         }
         System.out.println();
 
         for(int i = cells.length-1;i>=cells.length/2;i--) {
+        	if(i%2==0) System.out.print("#");
             System.out.print(cells[i] + " | ");
         }
         System.out.println();

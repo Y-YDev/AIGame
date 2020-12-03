@@ -5,8 +5,8 @@ public class Game{
         board = new Board();
         initBoard();
     }
-    private IPlayer P1 = new AI(true);//Cases impaires
-    private IPlayer P2 = new AI(false);//Cases paires
+    private IPlayer P1 = new AI(true,5);//Cases impaires
+    private IPlayer P2 = new Player(false);//Cases paires
 
     protected void initBoard(){
         board.totalSeed = 4*24;//96 graines
@@ -21,29 +21,29 @@ public class Game{
     }
 
     public void gameLoop() throws Exception {
-
+    	
+    	board.printBoard();
         while(!board.endPosition()){
 
-            board.printBoard();//Print
-
+        	
             int move;
             if(board.P1Turn){
                 move = P1.play(board);
+                System.out.println("P1 a joué :"+(move+1));
             }
             else{
                 move = P2.play(board);
+                System.out.println("P2 a joué :"+(move+1));
             }
 
             if(board.correctMove(move)){
                 board.playMove(move);
+                board.printBoard();//Print
             }
             else{//INCORRECT MOVE
                 throw new Exception("INVALID MOVE");
             }
 
-            if(board.totalSeed <= 48){//Teacher rule
-                board.changeBoard();
-            }
 
             board.P1Turn = !board.P1Turn;//Changement de joueur.
         }
