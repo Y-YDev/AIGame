@@ -16,3 +16,4 @@ out/
 log/
 target/
 *.class
+/bin/

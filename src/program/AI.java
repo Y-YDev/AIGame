@@ -4,12 +4,15 @@ public class AI implements IPlayer {
 
     private boolean isP1 = false;
     public final static int VALMAX=96;
-    public int maxDepth = 7;
+    public int maxDepth;
+    
+    private Pool pool;
     
 
     public AI(boolean isP1,int maxDepth){
         this.isP1 = isP1;
         this.maxDepth = maxDepth;
+        pool = new Pool(maxDepth+5,maxDepth+5);
     }
 
 
@@ -18,8 +21,12 @@ public class AI implements IPlayer {
         int maxResult= 0;
         int index = -1;
         for(int i = 0; i<board.currentSize/2;i++){
-            Board playNext = new Board(board);
-            if(!playNext.correctMove(convertIndex(i))) continue;
+            Board playNext = pool.pollBoard(board);
+            
+            if(!playNext.correctMove(convertIndex(i))) {
+            	 pool.pushBoard(playNext);
+            	continue;
+            }
             playNext.playMove(convertIndex(i));
 
             int result = minMaxValue(playNext,this.isP1,1);
@@ -35,13 +42,14 @@ public class AI implements IPlayer {
                 maxResult = result;
                 index = i;
             }
+            pool.pushBoard(playNext);
         }
         return convertIndex(index);//Case 1 d'index 0
     }
 
     public int minMaxValue(Board board,boolean isP1, int depth){
         int sizeArray = board.currentSize/2;
-        int[] scoreByIndex = new int[sizeArray];
+
         if(board.endPosition()){
             if (board.scoreP1 == board.scoreP2) return 0;
             else if (board.scoreP1 > board.scoreP2) return VALMAX;
@@ -50,11 +58,14 @@ public class AI implements IPlayer {
         if(depth==maxDepth){
             return board.scoreP1-board.scoreP2;
         }
+        
+        int[] scoreByIndex = pool.pollIntArray12();
         for(int i = 0; i<sizeArray;i++){
             if(board.correctMove(convertIndex(i))){
-                Board nextPos = new Board(board);
+                Board nextPos = pool.pollBoard(board);
                 nextPos.playMove(convertIndex(i));
                 scoreByIndex[i] = minMaxValue(nextPos,!isP1,depth+1);
+                pool.pushBoard(nextPos);
             }
             else{
                 if (isP1) scoreByIndex[i] = -10000;
@@ -84,6 +95,7 @@ public class AI implements IPlayer {
             }
             res = min;
         }
+        pool.pushIntArray12(scoreByIndex);
         return res;
 
     }

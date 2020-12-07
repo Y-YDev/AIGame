@@ -29,6 +29,10 @@ public class Board {
         this.isReduce = board.isReduce;
         this.currentSize = board.currentSize;
     }
+    
+    public void allocBoard() {
+        cells = new int[START_SIZE];
+    }
 
 
     public boolean endPosition(){
@@ -137,4 +141,19 @@ public class Board {
         }
         System.out.println();
     }
+    
+    
+    
+    public void copy(Board board){
+        for(int i = 0;i<board.currentSize;i++){
+            cells[i] = board.cells[i];
+        }
+        this.totalSeed = board.totalSeed;
+        this.P1Turn = board.P1Turn;
+        this.scoreP1 = board.scoreP1;
+        this.scoreP2 = board.scoreP2;
+        this.isReduce = board.isReduce;
+        this.currentSize = board.currentSize;
+    }
+    
 }
