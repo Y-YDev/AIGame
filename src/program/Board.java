@@ -1,3 +1,5 @@
+package program;
+
 public class Board {
     public int[] cells = new int[24];//Cases du jeu
     public int totalSeed = 0;

@@ -1,3 +1,5 @@
+package program;
+
 import java.util.Scanner;
 
 public class Player implements IPlayer{

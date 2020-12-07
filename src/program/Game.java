@@ -1,3 +1,5 @@
+package program;
+
 public class Game{
     Board board;
 
@@ -5,8 +7,8 @@ public class Game{
         board = new Board();
         initBoard();
     }
-    private IPlayer P1 = new AI(true,5);//Cases impaires
-    private IPlayer P2 = new Player(false);//Cases paires
+    private IPlayer P1 = new AI(true,9);//Cases impaires
+    private IPlayer P2 = new AI(false, 9);//Cases paires
 
     protected void initBoard(){
         board.totalSeed = 4*24;//96 graines
@@ -29,11 +31,11 @@ public class Game{
             int move;
             if(board.P1Turn){
                 move = P1.play(board);
-                System.out.println("P1 a joué :"+(move+1));
+                System.out.println("P1 a jouÃ© : "+(move+1));
             }
             else{
                 move = P2.play(board);
-                System.out.println("P2 a joué :"+(move+1));
+                System.out.println("P2 a jouÃ© : "+(move+1));
             }
 
             if(board.correctMove(move)){
@@ -43,7 +45,7 @@ public class Game{
             else{//INCORRECT MOVE
                 throw new Exception("INVALID MOVE");
             }
-
+            System.out.println("SCORE P1 = "+board.scoreP1+" | SCORE P2 = "+board.scoreP2+"\n");
 
             board.P1Turn = !board.P1Turn;//Changement de joueur.
         }
