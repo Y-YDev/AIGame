@@ -4,6 +4,10 @@ public class Board {
     public int[] cells = new int[24];//Cases du jeu
     public int totalSeed = 0;
 
+    public static final int START_SIZE = 24;
+    public static final int END_SIZE = 12;
+    public int currentSize = START_SIZE;
+
     public boolean P1Turn = true;//true = Tour du player 1
 
     boolean isReduce=false;
@@ -14,8 +18,8 @@ public class Board {
     public Board(){ }
 
     public Board(Board board){
-        cells = new int[board.cells.length];
-        for(int i = 0;i<board.cells.length;i++){
+        cells = new int[board.currentSize];
+        for(int i = 0;i<board.currentSize;i++){
             cells[i] = board.cells[i];
         }
         this.totalSeed = board.totalSeed;
@@ -23,6 +27,7 @@ public class Board {
         this.scoreP1 = board.scoreP1;
         this.scoreP2 = board.scoreP2;
         this.isReduce = board.isReduce;
+        this.currentSize = board.currentSize;
     }
 
 
@@ -88,10 +93,10 @@ public class Board {
     }
 
     protected int getIndex(int idx){
-        idx %= cells.length;
+        idx %= currentSize;
 
         if(idx < 0){
-            return cells.length+idx;
+            return currentSize+idx;
         }
         else{
             return idx;
@@ -101,7 +106,7 @@ public class Board {
     protected int nBSeedsOnCells(boolean P1){
         int seeds = 0;
 
-        for(int i =0; i < cells.length; i++){
+        for(int i =0; i < currentSize; i++){
             if((i%2==0) == P1) {
                 seeds += cells[i];
             }
@@ -111,24 +116,22 @@ public class Board {
     }
 
     protected void changeBoard(){
-        int[] newCells = new int[12];
+        currentSize = END_SIZE;
         isReduce = true;
         for(int i =0;i<12;i++){//Merge des cases (Teacher rule)
-            for(int j = i*2; j<=i*2+1;j++){
-                newCells[i] += cells[j];
-            }
+            cells[i] = cells[i*2] + cells[i*2+1];
         }
-        cells = newCells;
     }
 
     protected void printBoard(){
-        for(int i = 0;i<cells.length/2;i++) {
+
+        for(int i = 0;i<currentSize/2;i++) {
         	if(i%2==0) System.out.print("#");
             System.out.print(cells[i] + " | ");
         }
         System.out.println();
 
-        for(int i = cells.length-1;i>=cells.length/2;i--) {
+        for(int i = currentSize-1;i>=currentSize/2;i--) {
         	if(i%2==0) System.out.print("#");
             System.out.print(cells[i] + " | ");
         }

@@ -17,7 +17,7 @@ public class AI implements IPlayer {
     public int play(Board board){
         int maxResult= 0;
         int index = -1;
-        for(int i = 0; i<board.cells.length/2;i++){
+        for(int i = 0; i<board.currentSize/2;i++){
             Board playNext = new Board(board);
             if(!playNext.correctMove(convertIndex(i))) continue;
             playNext.playMove(convertIndex(i));
@@ -40,7 +40,7 @@ public class AI implements IPlayer {
     }
 
     public int minMaxValue(Board board,boolean isP1, int depth){
-        int sizeArray = board.cells.length/2;
+        int sizeArray = board.currentSize/2;
         int[] scoreByIndex = new int[sizeArray];
         if(board.endPosition()){
             if (board.scoreP1 == board.scoreP2) return 0;
