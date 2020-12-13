@@ -7,8 +7,9 @@ public class Game{
         board = new Board();
         initBoard();
     }
+    //best p1 -> 8 de prof
     private IPlayer P1 = new AI3(true,8);//Cases impaires
-    private IPlayer P2 = new AI2(false,20);//Cases paires
+    private IPlayer P2 = new AI4(false,8);//Cases paires
 
     protected void initBoard(){
         board.totalSeed = 4*24;//96 graines
