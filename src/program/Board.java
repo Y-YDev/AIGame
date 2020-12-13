@@ -6,6 +6,9 @@ public class Board {
 
     public static final int START_SIZE = 24;
     public static final int END_SIZE = 12;
+    public static final int MAXVALUE = 10_000 ;
+    public static final int CHEATVALUE = 100_000_000;
+
     public int currentSize = START_SIZE;
 
     public boolean P1Turn = true;//true = Tour du player 1
@@ -50,9 +53,13 @@ public class Board {
 
     public boolean correctMove(int move){
 
-        if((move%2==0) != P1Turn) return false;//Joue sur la case de l'autre.
+        if((move%2==0) != P1Turn) {
+            return false;//Joue sur la case de l'autre.
+        }
 
-        if(cells[move] == 0) return false;//Il joue sur une case vide.
+        if(cells[move] == 0) {
+            return false;//Il joue sur une case vide.
+        }
 
         return true;
     }
@@ -89,11 +96,22 @@ public class Board {
             else{
                 scoreP2 += totalSeed;
             }
+            totalSeed = 0;
         }
         
         if(!isReduce && totalSeed <= 48){//Teacher rule
             changeBoard();
+            if(nBSeedsOnCells(!P1Turn) == 0){//Starving end
+                if(P1Turn){//P1 take P2 starve
+                    scoreP1 += totalSeed;
+                }
+                else{
+                    scoreP2 += totalSeed;
+                }
+                totalSeed = 0;
+            }
         }
+        P1Turn = !P1Turn;
     }
 
     protected int getIndex(int idx){
