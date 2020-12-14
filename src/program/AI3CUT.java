@@ -5,7 +5,7 @@ import static program.Board.MAXVALUE;
 
 public class AI3CUT implements IPlayer {
 
-    private boolean isP1 = false;
+    private boolean isP1;
     public final static int VALMAX=96;
     public int maxDepth;
 
@@ -43,13 +43,13 @@ public class AI3CUT implements IPlayer {
                 maxResult = result;
                 index = i;
             }
-            if(isP1 && result >=maxResult){
+            if(isP1 && result >maxResult){
                 maxResult = result;
                 index = i;
                 alpha =result;
 
             }
-            else if(!isP1 && result <=maxResult ){
+            else if(!isP1 && result <maxResult ){
                 maxResult = result;
                 index = i;
                 beta =result;
@@ -84,7 +84,7 @@ public class AI3CUT implements IPlayer {
                     if(alpha<=currentScore){
                         alpha =currentScore;
                         if (alpha>=beta){
-                            return alpha;
+                            return beta;
                         }
                     }
                 }
@@ -92,7 +92,7 @@ public class AI3CUT implements IPlayer {
                     if (beta >= currentScore) {
                         beta = currentScore;
                         if (beta <= alpha) {
-                            return beta;
+                            return alpha;
                         }
                     }
                 }
@@ -116,8 +116,8 @@ public class AI3CUT implements IPlayer {
 
     private int evaluation(Board board) {
 
-        if(board.scoreP1>48) return VALMAX;
-        if(board.scoreP2>48) return -VALMAX;
+        if(board.scoreP1>48) return VALMAX+board.scoreP1-board.scoreP2;
+        if(board.scoreP2>48) return -VALMAX+board.scoreP1-board.scoreP2;
         return board.scoreP1-board.scoreP2;
 
     }

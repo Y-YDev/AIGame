@@ -118,8 +118,8 @@ public class AI3 implements IPlayer {
     
     private int evaluation(Board board) {
 
-    	if(board.scoreP1>48) return VALMAX;
-    	if(board.scoreP2>48) return -VALMAX;
+        if(board.scoreP1>48) return VALMAX+board.scoreP1-board.scoreP2;
+        if(board.scoreP2>48) return -VALMAX+board.scoreP1-board.scoreP2;
     	return board.scoreP1-board.scoreP2;
     	
     }
