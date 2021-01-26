@@ -5,6 +5,7 @@
 #include "MinMaxClassique.h"
 #include "MinMaxCut.h"
 #include "DynamicAI.h"
+#include "MinMaxCutEval.h"
 #include <string>
 
 
@@ -15,14 +16,14 @@ class Game
 {
 public:
     Board* board;
-    DynamicAI* P1;
-    MinMaxCut* P2;
+    MinMaxCut* P1;
+    MinMaxCutEval* P2;
 
     Game() {
         board = new Board();
         board->initBoard();
-        P1 = new DynamicAI(true, 9);
-        P2 = new MinMaxCut(false, 9);
+        P1 = new MinMaxCut(true, 11);
+        P2 = new MinMaxCutEval(false, 11);
     }
 
     void gameLoop(){
