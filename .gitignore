@@ -11,9 +11,17 @@ out/
 
 # Mac
 .DS_Store
-.vs
+
 # Maven
 log/
 target/
 *.class
 /bin/
+
+#C
+.vs
+C/Debug/
+C/x64/
+
+C/C/Debug
+C/C/x64
