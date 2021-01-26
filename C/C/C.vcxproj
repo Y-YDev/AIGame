@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
+    <ClInclude Include="DynamicAI.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="MinMaxClassique.h" />
     <ClInclude Include="MinMaxCut.h" />
@@ -148,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="DynamicAI.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="MinMaxClassique.cpp" />
     <ClCompile Include="MinMaxCut.cpp" />
