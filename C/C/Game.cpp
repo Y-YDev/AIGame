@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include "MinMaxClassique.h"
+#include "MinMaxCut.h"
 #include <string>
 
 
@@ -13,14 +14,14 @@ class Game
 {
 public:
     Board* board;
-    MinMaxClassique* P1;
-    MinMaxClassique* P2;
+    MinMaxCut* P1;
+    MinMaxCut* P2;
 
     Game() {
         board = new Board();
         board->initBoard();
-        P1 = new MinMaxClassique(true, 7);
-        P2 = new MinMaxClassique(false, 7);
+        P1 = new MinMaxCut(true, 11);
+        P2 = new MinMaxCut(false, 11);
     }
 
     void gameLoop(){
