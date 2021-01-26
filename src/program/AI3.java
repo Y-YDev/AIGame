@@ -50,6 +50,8 @@ public class AI3 implements IPlayer {
             }
             pool.pushBoard(playNext);
         }
+        System.out.println("max result = "+maxResult);
+        System.out.println("----------------------------------");
         return convertIndex(isP1, index);//Case 1 d'index 0
     }
 
@@ -81,10 +83,10 @@ public class AI3 implements IPlayer {
         int res;
         if(rushMax){
             // WRITE the code : res contains the MAX of tab_values
-            int max = -1;
+            int max = -1748748597;
             for (int i = 0; i < sizeArray; i++) {
                 int score = scoreByIndex[i];
-                if (max == -1 || max < score) {
+                if (max < score) {
                     max = score;
                 }
             }
@@ -92,10 +94,10 @@ public class AI3 implements IPlayer {
         }
         else {
             // WRITE the code: res contains the MIN of tab_values
-            int min = -1;
+            int min = 1748748597;
             for (int i = 0; i < sizeArray; i++) {
                 int score = scoreByIndex[i];
-                if (min == -1 || min > score) {
+                if (min > score) {
                     min = score;
                 }
             }

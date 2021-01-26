@@ -21,6 +21,7 @@ public class AI3CUT implements IPlayer {
 
     @Override
     public int play(Board board){
+        long start = System.currentTimeMillis();
         int maxResult= 0;
         int index = -1;
         int alpha = -MAXVALUE;
@@ -57,6 +58,12 @@ public class AI3CUT implements IPlayer {
             }
             pool.pushBoard(playNext);
         }
+        long end = System.currentTimeMillis();
+        long time = end-start;
+        System.out.println(((double)time)/1000+" seconde");
+        System.out.println("max result = "+maxResult);
+        System.out.println("----------------------------------");
+
         return convertIndex(isP1, index);//Case 1 d'index 0
     }
 
