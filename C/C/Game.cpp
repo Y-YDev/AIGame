@@ -16,14 +16,15 @@ class Game
 {
 public:
     Board* board;
-    MinMaxCut* P1;
-    MinMaxCutEval* P2;
+    MinMaxCutEval* P1;
+    MinMaxCut* P2;
+    int turn = 1;
 
     Game() {
         board = new Board();
         board->initBoard();
-        P1 = new MinMaxCut(true, 11);
-        P2 = new MinMaxCutEval(false, 11);
+        P1 = new MinMaxCutEval(true, 9);
+        P2 = new MinMaxCut(false, 9);
     }
 
     void gameLoop(){
@@ -46,7 +47,9 @@ public:
                 board->playMove(move);
                 board->printBoard();//Print
                 cout << "SCORE P1 = " << board->scoreP1 << " | SCORE P2 = " << board->scoreP2 << endl;
+                cout << "TOUR " << turn << endl;
                 cout << endl;
+                turn++;
             }
             else {//INCORRECT MOVE
                 cout << "coup incorrect" << endl;

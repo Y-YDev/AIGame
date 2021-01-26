@@ -56,7 +56,7 @@ int MinMaxCutEval::play(Board* board) {
 int MinMaxCutEval::minMaxValue(Board* board, bool rushMax, int depth, int alpha, int beta) {
 
     if (board->endPosition()) {
-        evaluationEnd(board);
+        return evaluationEnd(board);
     }
     if (depth == maxDepth) {
         return evaluation(board);
