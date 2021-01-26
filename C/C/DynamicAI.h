@@ -16,7 +16,7 @@ private:
 	int convertIndex(bool isP1, int i);
 
 	bool isP1 = false;
-	const int VALMAX = 96;
+	const int VALMAX = 100000;
 	int winValue = 1000000;
 
 	int maxDepth;

@@ -124,12 +124,29 @@ int DynamicAI::minMaxValue(Board* board, bool rushMax, int depth, int alpha, int
 
     return 0;
 }
-
+/*
 int DynamicAI::evaluation(Board* board) {
     if (board->scoreP1 > 48) return VALMAX + board->scoreP1 - board->scoreP2;
     if (board->scoreP2 > 48) return -VALMAX + board->scoreP1 - board->scoreP2;
     return board->scoreP1 - board->scoreP2;
+}*/
+int DynamicAI::evaluation(Board* board) {
+    if (board->scoreP1 > 48) return VALMAX;
+    if (board->scoreP2 > 48) return -VALMAX;
+    int score = (board->scoreP1 - board->scoreP2) * 1000;
+
+    if (!board->isReduce) {
+        for (int i = 0; i < board->currentSize; i++) {
+            if (i % 4 < 2)
+                score += board->cells[i];
+            else
+                score -= board->cells[i];
+        }
+    }
+
+    return score;
 }
+
 
 int DynamicAI::convertIndex(bool isP1, int i) {
     if (isP1) {
@@ -141,7 +158,7 @@ int DynamicAI::convertIndex(bool isP1, int i) {
 }
 
 void DynamicAI::computeDynDepth(Board* board) {
-    if (lastTurnTime < 200) {
+    if (lastTurnTime < 120) {
         maxDepth++;
 
         if (lastTurnTime < 10) {//TOOO FAST
