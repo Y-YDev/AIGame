@@ -158,7 +158,7 @@ int DynamicAI::convertIndex(bool isP1, int i) {
 }
 
 void DynamicAI::computeDynDepth(Board* board) {
-    if (lastTurnTime < 120) {
+    if (lastTurnTime < 150) {
         maxDepth++;
 
         if (lastTurnTime < 10) {//TOOO FAST

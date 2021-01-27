@@ -6,6 +6,7 @@
 #include "MinMaxCut.h"
 #include "DynamicAI.h"
 #include "MinMaxCutEval.h"
+#include "MinMaxMultiThread.h"
 #include <string>
 
 
@@ -16,15 +17,15 @@ class Game
 {
 public:
     Board* board;
-    MinMaxCutEval* P1;
+    MinMaxMultiThread* P1;
     MinMaxCut* P2;
     int turn = 1;
 
     Game() {
         board = new Board();
         board->initBoard();
-        P1 = new MinMaxCutEval(true, 9);
-        P2 = new MinMaxCut(false, 9);
+        P1 = new MinMaxMultiThread(true, 11);
+        P2 = new MinMaxCut(false, 11);
     }
 
     void gameLoop(){
@@ -40,6 +41,8 @@ public:
             }
             else {
                 move = P2->play(board);
+                //cin >> move;
+                //move -= 1;
                 cout << "P2 a joue : " << (move + 1) << endl;
             }
 

@@ -117,10 +117,15 @@ int MinMaxCutEval::evaluation(Board* board) {
 
     if (!board->isReduce) {
         for (int i = 0; i < board->currentSize; i++) {
-            if (i % 4 < 2)
-                score += board->cells[i];
-            else
+            int tmp = i % 4;
+            if (i == 0)
+                score += board->cells[i] * 2;
+            else if (i == 1)
                 score -= board->cells[i];
+            else if (i == 2)
+                score += board->cells[i];
+            else if (i == 3)
+                score -= board->cells[i] * 2;
         }
     }
 
