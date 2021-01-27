@@ -8,6 +8,7 @@
 #include "MinMaxCutEval.h"
 #include "MinMaxMultiThread.h"
 #include "MultiThreadDyn.h"
+#include "MultiThreadDynNoPool.h"
 #include <string>
 
 
@@ -19,14 +20,14 @@ class Game
 public:
     Board* board;
     MinMaxMultiThread* P1;
-    MultiThreadDyn* P2;
+    MultiThreadDynNoPool* P2;
     int turn = 1;
 
     Game() {
         board = new Board();
         board->initBoard();
         P1 = new MinMaxMultiThread(true, 10);
-        P2 = new MultiThreadDyn(false, 10);
+        P2 = new MultiThreadDynNoPool(false, 10);
     }
 
     void gameLoop(){

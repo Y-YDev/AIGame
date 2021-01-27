@@ -16,6 +16,7 @@ class Board {
 		bool P1Turn = true;
 
 		Board();
+		Board(Board* board);
 
 		void initBoard();
 
