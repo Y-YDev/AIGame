@@ -28,8 +28,9 @@ private:
 
 	int turn = 0;
 	long lastTurnTime = 500;
+	std::thread threadList[12];
+	bool finish[12];
 
-	std::thread m_thread;
 };
 
 

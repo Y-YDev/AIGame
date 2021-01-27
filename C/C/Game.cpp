@@ -19,14 +19,14 @@ class Game
 {
 public:
     Board* board;
-    MinMaxMultiThread* P1;
+    MultiThreadDynNoPool* P1;
     MultiThreadDynNoPool* P2;
     int turn = 1;
 
     Game() {
         board = new Board();
         board->initBoard();
-        P1 = new MinMaxMultiThread(true, 10);
+        P1 = new MultiThreadDynNoPool(true, 10);
         P2 = new MultiThreadDynNoPool(false, 10);
     }
 

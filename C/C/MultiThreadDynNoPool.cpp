@@ -7,7 +7,6 @@ using namespace std;
 MultiThreadDynNoPool::MultiThreadDynNoPool(bool isP1, int maxDepth) {
     this->isP1 = isP1;
     this->maxDepth = maxDepth;
-
 }
 int MultiThreadDynNoPool::play(Board* board) {
     std::clock_t start;
@@ -18,14 +17,13 @@ int MultiThreadDynNoPool::play(Board* board) {
     int maxResult = 0;
     int alpha = -VALMAX;
     int beta = VALMAX;
-    thread threadList[12];
     //m_thread = std::thread(&MinMaxMultiThread::threadPlay,this,board,0,alpha,beta);
 
     for (int i = 0; i < board->currentSize / 2; i++) {
         threadList[i] = thread(&MultiThreadDynNoPool::threadPlay, this, board, i, alpha, beta);
 
     }
-    for (int i = 0; i < board->currentSize / 2; i++) {
+    for (int i = 0; i < board->currentSize / 2; i++) { //TODO finish test 1s resend thread with depth -1 
         threadList[i].join();
     }
     int index = 0;
@@ -58,17 +56,20 @@ int MultiThreadDynNoPool::play(Board* board) {
 
 void MultiThreadDynNoPool::threadPlay(Board* board, int index, int alpha, int beta) {
     Board playNext = Board(board);
+    finish[index] = false;
 
 
     if (!playNext.correctMove(convertIndex(isP1, index))) {
         if (isP1) listScore[index] = -VALMAX * 2;
         else listScore[index] = VALMAX * 2;
+        finish[index] = true;
         return;
     }
     //l'ia fait tout les coup possible 1 par 1
     playNext.playMove(convertIndex(isP1, index));
     //l'ia fait jouer les autre coup en partant de l'inverse
     listScore[index] = minMaxValue(&playNext, !this->isP1, 1, alpha, beta);
+    finish[index] = true;
     return;
 }
 
@@ -84,7 +85,7 @@ int MultiThreadDynNoPool::minMaxValue(Board* board, bool rushMax, int depth, int
     }
     int nbPlay = board->currentSize / 2;
     if (rushMax) {
-        int max = -VALMAX;
+        int max = -VALMAX*2;
         int current;
         for (int i = 0; i < nbPlay; i++) {
             if (board->correctMove(convertIndex(rushMax, i))) {
@@ -93,6 +94,9 @@ int MultiThreadDynNoPool::minMaxValue(Board* board, bool rushMax, int depth, int
                 current = minMaxValue(&nextPos, !rushMax, depth + 1, alpha, beta);
                 if (max < current) {
                     max = current;
+                    if (max >= VALMAX) {
+                        return max;
+                    }
                 }
                 if (alpha < current) {
                     alpha = current;
@@ -105,7 +109,7 @@ int MultiThreadDynNoPool::minMaxValue(Board* board, bool rushMax, int depth, int
         return max;
     }
     else {
-        int min = VALMAX;
+        int min = VALMAX*2;
         int current;
         for (int i = 0; i < nbPlay; i++) {
             if (board->correctMove(convertIndex(rushMax, i))) {
@@ -114,6 +118,9 @@ int MultiThreadDynNoPool::minMaxValue(Board* board, bool rushMax, int depth, int
                 current = minMaxValue(&nextPos, !rushMax, depth + 1, alpha, beta);
                 if (min > current) {
                     min = current;
+                    if (min <= -VALMAX) {
+                        return min;
+                    }
                 }
 
                 if (beta >= current) {
@@ -146,7 +153,7 @@ int MultiThreadDynNoPool::convertIndex(bool isP1, int i) {
 }
 
 void MultiThreadDynNoPool::computeDynDepth(Board* board) {
-    if (lastTurnTime < 180) {
+    if (lastTurnTime < 140) {
         maxDepth++;
 
         if (lastTurnTime < 10) {//TOOO FAST
@@ -154,7 +161,7 @@ void MultiThreadDynNoPool::computeDynDepth(Board* board) {
         }
     }
 
-    else if (lastTurnTime > 1700) {
+    else if (lastTurnTime > 1100) {
         maxDepth--;
     }
     if (capeMax < maxDepth) {
