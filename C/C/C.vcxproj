@@ -147,6 +147,7 @@
     <ClInclude Include="MinMaxCut.h" />
     <ClInclude Include="MinMaxCutEval.h" />
     <ClInclude Include="MinMaxMultiThread.h" />
+    <ClInclude Include="MultiThreadDyn.h" />
     <ClInclude Include="PoolBoard.h" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +158,7 @@
     <ClCompile Include="MinMaxCut.cpp" />
     <ClCompile Include="MinMaxCutEval.cpp" />
     <ClCompile Include="MinMaxMultiThread.cpp" />
+    <ClCompile Include="MultiThreadDyn.cpp" />
     <ClCompile Include="PoolBoard.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

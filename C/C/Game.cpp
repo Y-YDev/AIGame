@@ -7,6 +7,7 @@
 #include "DynamicAI.h"
 #include "MinMaxCutEval.h"
 #include "MinMaxMultiThread.h"
+#include "MultiThreadDyn.h"
 #include <string>
 
 
@@ -18,14 +19,14 @@ class Game
 public:
     Board* board;
     MinMaxMultiThread* P1;
-    MinMaxCut* P2;
+    MultiThreadDyn* P2;
     int turn = 1;
 
     Game() {
         board = new Board();
         board->initBoard();
-        P1 = new MinMaxMultiThread(true, 11);
-        P2 = new MinMaxCut(false, 11);
+        P1 = new MinMaxMultiThread(true, 10);
+        P2 = new MultiThreadDyn(false, 10);
     }
 
     void gameLoop(){
