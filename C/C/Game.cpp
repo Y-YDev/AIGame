@@ -41,6 +41,7 @@ public:
             int move;
             if (board->P1Turn) {
                 move = P1->play(board, lastTurn);//Récupération du coup
+                //jouer sans l'ia depuis la console
                 //cin >> move;
                 //move -= 1;
 
@@ -48,6 +49,7 @@ public:
             }
             else {
                 move = P2->play(board, lastTurn);//Récupération du coup
+                //jouer sans l'ia depuis la console
                 //cin >> move;
                 //move -= 1;
                 cout << "P2 a joue : " << (move + 1) << endl;
