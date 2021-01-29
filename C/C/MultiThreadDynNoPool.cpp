@@ -8,15 +8,28 @@ MultiThreadDynNoPool::MultiThreadDynNoPool(bool isP1, int maxDepth) {
     this->isP1 = isP1;
     this->maxDepth = maxDepth;
 }
-int MultiThreadDynNoPool::play(Board* board) {
+int MultiThreadDynNoPool::play(Board* board, int lastTurn) {
+    turn++;
     std::clock_t start;
     start = std::clock();
+    if (turn == 1) {
+        if (isP1) return 6; //best 3
+        else {
+            if (lastTurn % 4 < 2) {
+                return ((lastTurn + 9) % 24);
+            }
+            else {
+                return ((lastTurn + 19) % 24);
+            }
+        }
+        //else return convertIndex(isP1, 8); //if 3 -> 22 if 1 -> 10 TODO(best value)
+    }
 
     computeDynDepth(board);
 
     int maxResult = 0;
-    int alpha = -VALMAX;
-    int beta = VALMAX;
+    int alpha = -VALMAX*2;
+    int beta = VALMAX*2;
     //m_thread = std::thread(&MinMaxMultiThread::threadPlay,this,board,0,alpha,beta);
 
     for (int i = 0; i < board->currentSize / 2; i++) {
@@ -77,8 +90,8 @@ int MultiThreadDynNoPool::minMaxValue(Board* board, bool rushMax, int depth, int
 
     if (board->endPosition()) {
         if (board->scoreP1 == board->scoreP2) return 0;
-        else if (board->scoreP1 > board->scoreP2) return VALMAX + 100 + board->scoreP1 - board->scoreP2;
-        else return -VALMAX - 100 + board->scoreP1 - board->scoreP2;
+        else if (board->scoreP1 > board->scoreP2) return VALMAX + board->scoreP1 - board->scoreP2;
+        else return -VALMAX + board->scoreP1 - board->scoreP2;
     }
     if (depth == maxDepth) {
         return evaluation(board);
@@ -153,7 +166,7 @@ int MultiThreadDynNoPool::convertIndex(bool isP1, int i) {
 }
 
 void MultiThreadDynNoPool::computeDynDepth(Board* board) {
-    if (lastTurnTime < 140) {
+    if (lastTurnTime < 450) {
         maxDepth++;
 
         if (lastTurnTime < 10) {//TOOO FAST
@@ -161,7 +174,7 @@ void MultiThreadDynNoPool::computeDynDepth(Board* board) {
         }
     }
 
-    else if (lastTurnTime > 1100) {
+    else if (lastTurnTime > 1300) {
         maxDepth--;
     }
     if (capeMax < maxDepth) {

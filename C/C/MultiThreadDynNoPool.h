@@ -8,7 +8,7 @@ class MultiThreadDynNoPool
 public:
 	MultiThreadDynNoPool();
 	MultiThreadDynNoPool(bool, int);
-	int play(Board* board);
+	int play(Board* board, int lastTurn);
 	int minMaxValue(Board* board, bool rushMax, int depth, int alpha, int beta);
 private:
 	void threadPlay(Board* board, int index, int alpha, int beta);

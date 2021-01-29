@@ -8,7 +8,7 @@ class MultiDynEval
 public:
 	MultiDynEval();
 	MultiDynEval(bool, int);
-	int play(Board* board);
+	int play(Board* board,int lastTurn);
 	int minMaxValue(Board* board, bool rushMax, int depth, int alpha, int beta);
 private:
 	void threadPlay(Board* board, int index, int alpha, int beta);
@@ -25,7 +25,7 @@ private:
 
 	int maxDepth;
 	int capeMax = 22;//Profondeur maximale.
-	int minDepthReduce = 17;//Profondeur mini avec tableau réduit.
+	int minDepthReduce = 16;//Profondeur mini avec tableau réduit.
 
 	long lastTurnTime = 500;
 	std::thread threadList[12];
