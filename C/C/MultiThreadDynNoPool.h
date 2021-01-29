@@ -24,7 +24,7 @@ private:
 
 	int maxDepth;
 	int capeMax = 22;//Profondeur maximale.
-	int minDepthReduce = 17;//Profondeur mini avec tableau réduit.
+	int minDepthReduce = 16;//Profondeur mini avec tableau réduit.
 
 	int turn = 0;
 	long lastTurnTime = 500;

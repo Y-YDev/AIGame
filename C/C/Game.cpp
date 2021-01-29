@@ -11,6 +11,7 @@
 #include "MultiThreadDynNoPool.h"
 #include "MultiDynEval.h"
 #include <string>
+#include "BestIA.h"
 
 #include <Windows.h>
 
@@ -20,14 +21,14 @@ class Game
 public:
 
     Board* board;
-    MultiThreadDynNoPool* P1;
-    MultiThreadDynNoPool* P2;
+    BestIA* P1;
+    BestIA* P2;
     int turn = 1;
     Game() {
         board = new Board();
         board->initBoard();
-        P1 = new MultiThreadDynNoPool(true, 9);
-        P2 = new MultiThreadDynNoPool(false,9);
+        P1 = new BestIA(true, 9);
+        P2 = new BestIA(false,9);
     }
 
     void gameLoop(){

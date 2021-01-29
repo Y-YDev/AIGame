@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BestIA.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="DynamicAI.h" />
     <ClInclude Include="Game.h" />
@@ -153,6 +154,7 @@
     <ClInclude Include="PoolBoard.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BestIA.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="DynamicAI.cpp" />
     <ClCompile Include="Game.cpp" />
