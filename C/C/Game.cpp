@@ -26,7 +26,7 @@ public:
     int turn = 1;
     Game() {
         board = new Board();
-        board->initBoard();
+        board->initBoard();//Init du plateau
         P1 = new BestIA(true, 9);
         P2 = new BestIA(false,9);
     }
@@ -40,25 +40,24 @@ public:
 
             int move;
             if (board->P1Turn) {
-                move = P1->play(board, lastTurn);
+                move = P1->play(board, lastTurn);//Récupération du coup
                 //cin >> move;
                 //move -= 1;
-                
 
                 cout<< "P1 a joue : " << (move + 1) << endl;
             }
             else {
-                move = P2->play(board, lastTurn);
+                move = P2->play(board, lastTurn);//Récupération du coup
                 //cin >> move;
                 //move -= 1;
                 cout << "P2 a joue : " << (move + 1) << endl;
 
             }
 
-            if (board->correctMove(move)) {
+            if (board->correctMove(move)) {//Si le coup est correct
                 lastTurn = move;
-                board->playMove(move);
-                board->printBoard();//Print
+                board->playMove(move);//On joue rééllement le coup
+                board->printBoard();
                 cout << "SCORE P1 = " << board->scoreP1 << " | SCORE P2 = " << board->scoreP2 << endl;
                 cout << "TOUR " << turn << endl;
                 cout << endl;
@@ -70,7 +69,7 @@ public:
             
 
         }
-
+        //FIN DE PARTIE
         cout<< "SCORE P1 = " << board->scoreP1 << " | SCORE P2 = " << board->scoreP2;
         cout << endl;
     }

@@ -8,7 +8,7 @@ using namespace std;
 
 
 Board::Board() {}
-Board::Board(Board* board) {
+Board::Board(Board* board) {//Copie du board par constructeur
     for (int i = 0; i < board->currentSize; i++) {
         cells[i] = board->cells[i];
     }
@@ -33,6 +33,7 @@ void Board::initBoard() {
     P1Turn = true;
 }
 
+//Donne le nombre de graines sur les cellules du joueur P1 ou P2
 int Board::nBSeedsOnCells(bool P1) {
     int seeds = 0;
     for (int i = 0; i < currentSize; i++) {
@@ -56,6 +57,7 @@ bool Board::endPosition() {
     return false;
 }
 
+//Conversion d'index
 int Board::getIndex(int idx) {
     idx = idx % currentSize;
 
@@ -70,6 +72,7 @@ int Board::getIndex(int idx) {
 void Board::changeBoard() {
     currentSize = END_SIZE;
     isReduce = true;
+
     for (int i = 0; i < 12; i++) {//Merge des cases (Teacher rule)
         cells[i] = cells[i * 2] + cells[i * 2 + 1];
     }
@@ -89,6 +92,7 @@ void Board::printBoard() {
     cout << endl;
 }
 
+//Copy d'un board
 void Board::copy(Board* board) {
     for (int i = 0; i < board->currentSize; i++) {
         cells[i] = board->cells[i];
