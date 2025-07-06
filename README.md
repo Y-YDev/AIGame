@@ -86,3 +86,7 @@ Awalé is a traditional African "sowing and capturing" game, part of the Mancala
 - Teacher Rule: when total seeds ≤ 48, board shrinks to 12 pits by merging pairs.
 
 This is a modern extended variant, often used in AI competitions and educational settings to teach strategic reduction and mid-game adaptation.
+
+## Screenshots
+![image](https://github.com/user-attachments/assets/de6b1700-d589-479f-8982-7cb15442c6b7)
+
