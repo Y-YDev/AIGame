@@ -30,3 +30,12 @@ Awalé is a traditional African "sowing and capturing" game, part of the Mancala
 ### Ethical Rule
 - You must always leave the opponent with a legal move. You cannot starve them intentionally.
 
+## Variant: Awalé Long with Teacher Rule
+
+- 24 pits (cells) at start, each with 4 seeds.
+- Sowing is cyclic over all pits (wrap-around).
+- Capture when last seed lands in opponent’s pit with 2 or 3 seeds (classic Awalé rule).
+- Starvation rule enforced: opponent must always have a move.
+- Teacher Rule: when total seeds ≤ 48, board shrinks to 12 pits by merging pairs.
+
+This is a modern extended variant, often used in AI competitions and educational settings to teach strategic reduction and mid-game adaptation.
