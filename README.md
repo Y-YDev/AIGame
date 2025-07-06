@@ -1,5 +1,40 @@
 # AIGame
-Repository du cours AI Game
+This project is the repository for the AI Game course, where we had to implement an AI on a slightly modified Awalé game.
+
+## Our AI Overview
+
+This section describes the main characteristics and mechanisms of our AI player.
+
+###  Evaluation Function
+Our AI uses a **naive evaluation function** based simply on the current score difference between the players. Even when it finds a winning move, it tries to **maximize the point margin**.  
+We experimented with more complex evaluation heuristics, but they provided no significant improvement and often led to worse results.
+
+###  Dynamic Depth
+- Default search depth: **9**.
+- The AI adjusts depth dynamically:
+  - If the previous move took **< 450 ms**, depth increases by 1 (or by 2 if **< 10 ms**).
+  - If a move takes **~1.3 seconds**, depth decreases by 1 to ensure we stay under the **2-second limit**.
+- When the board reduces in size (due to game rules), computation becomes much faster, so the AI can reach **maximum depth (22)** reliably in endgame.
+
+### Multi-Threading
+- Basic parallel approach:
+  - One thread per possible initial move (12 threads initially, 6 after board reduction).
+  - Each thread runs standard **minimax with alpha-beta pruning**.
+  - Threads write their evaluations into a shared array, and the best move is selected by the main thread.
+
+###  Move Opening Strategy
+- Empirical tests showed certain openings performed better at deep search.
+- For Player 1, opening on position **6** is generally strongest.
+- For Player 2, the response is calculated as:
+  - If **P % 4 < 2**: play **(P + 9) % 24**
+  - If **P % 4 ≥ 2**: play **(P + 19) % 24**
+
+###  Compilation Optimization
+- We used compiler optimizations for faster response times.
+  ```bash
+  g++ -fno-stack-protector -fno-pie -no-pie -fno-pic -O3 -static -Wall *.cpp -o program
+
+For more info [Report of our AI](https://github.com/Y-YDev/AIGame/blob/main/Rapport%20AI%20GAME.docx) 
 
 
 ## Rules of Awalé :
